@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  mariadb:
+    image: mariadb:10.11
+    container_name: finance-tracker-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: yourpassword
+      MYSQL_DATABASE: FinanceTracker
+      MYSQL_USER: financeuser
+      MYSQL_PASSWORD: financepass
+    ports:
+      - "3309:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - finance-network
+
+volumes:
+  mariadb_data:
+
+networks:
+  finance-network:
+    driver: bridge
